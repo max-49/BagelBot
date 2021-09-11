@@ -187,6 +187,10 @@ class Basic(commands.Cog):
         for i in range(5):
             await ctx.send(string, allowed_mentions=discord.AllowedMentions(everyone=False))
 
+    @commands.command(name="ping", help="displays the latency to the bot.")
+    async def ping(self, ctx):
+        await ctx.send(f'{round(self.bot.latency * 1000)}ms')
+
     async def cog_command_error(self, ctx, error):
         await ctx.send(f"**`ERROR in {os.path.basename(__file__)}:`** {type(error).__name__} - {error}")
 
