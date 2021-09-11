@@ -137,8 +137,7 @@ class Basic(commands.Cog):
             cd = round(error.retry_after)
             minutes = str(cd // 60)
             seconds = str(cd % 60)
-            em = discord.Embed(title=f"Woah! You don't need so many help embeds! Just use the one you already have!",
-                               description=f"Try again in {minutes} minutes and {seconds} seconds.", color=0xFF0000)
+            em = discord.Embed(title=f"Woah! You don't need so many help embeds! Just use the one you already have!", description=f"Try again in {minutes} minutes and {seconds} seconds.", color=0xFF0000)
             await ctx.send(embed=em)
 
     @commands.command(name="stats", help="view your ictf stats lol", pass_context=True)
@@ -176,10 +175,8 @@ class Basic(commands.Cog):
             unsolved = '\n'.join(all_list)
             embedVar = discord.Embed(title=f"Stats for {name}", color=0x3498DB)
             embedVar.add_field(name="Score", value=score, inline=False)
-            embedVar.add_field(name="Solved Challenges",
-                               value=solved, inline=True)
-            embedVar.add_field(name="Unsolved Challenges",
-                               value=unsolved, inline=True)
+            embedVar.add_field(name="Solved Challenges", value=solved, inline=True)
+            embedVar.add_field(name="Unsolved Challenges", value=unsolved, inline=True)
             embedVar.set_thumbnail(url=member.avatar_url)
             await ctx.send(embed=embedVar)
         except IndexError:
@@ -188,7 +185,7 @@ class Basic(commands.Cog):
     @commands.command(name='spam', help="spams text")
     async def spam(self, ctx, *, string: str):
         for i in range(5):
-            await ctx.send(string)
+            await ctx.send(string, allowed_mentions=discord.AllowedMentions(everyone=False))
 
     async def cog_command_error(self, ctx, error):
         await ctx.send(f"**`ERROR in {os.path.basename(__file__)}:`** {type(error).__name__} - {error}")

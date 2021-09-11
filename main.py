@@ -27,7 +27,7 @@ async def on_message(ctx):
 async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
         command = str(error).split('"')[1]
-        await ctx.send(f"Command **`{command}`** not found.")
+        await ctx.send(f"Command **`{command}`** not found.", allowed_mentions=discord.AllowedMentions(everyone=False))
 
 if __name__ == '__main__':
     for filename in os.listdir('cogs'):
