@@ -20,9 +20,11 @@ class Currency(commands.Cog):
         else:
             uid = user_id
         for i in range(len(profile_data)):
-            if(profile_data[i]['ID'] == uid):
+            if(profile_data[i]['ID'] == uid or profile_data[i]['Name'] == uid):
                 embedVar = discord.Embed(title=f"{profile_data[i]['Name']}'s balance", timestamp=datetime.utcnow(), color=0x00C3FF)
                 embedVar.add_field(name="Balance", value=f"{profile_data[i]['Balance']} bagels", inline=False)
+                embedVar.add_field(name="Net profit from betting", value=f"{profile_data[i]['Profit']} bagels", inline=False)
+                embedVar.add_field(name="Percent times won", value=f"{profile_data[i]['Win']}/{profile_data[i]['Times']} bagels ({round(profile_data[i]['Win']/profile_data[i]['Times'], 2)}%)", inline=False)
                 embedVar.set_thumbnail(url=profile_data[i]['Avatar URL'])
                 await ctx.reply(embed=embedVar)
                 return
@@ -30,7 +32,7 @@ class Currency(commands.Cog):
             if(user_id is None):
                 profile_data.append({"Name": ctx.author.name, "ID": ctx.author.id, "Avatar URL": str(ctx.author.avatar_url), "Balance": 1000, "Times": 0, "Win": 0, "Lose": 0, "Profit": 0})
                 embedVar = discord.Embed(title=f"{ctx.author.name}'s balance", timestamp=datetime.utcnow(), color=0x00C3FF)
-                embedVar.add_field(name="Balance", value="1000 bagels", inline=False)
+                embedVar.add_field(name="Profile initialized!", value="Run `b.balance` again to see your stats", inline=False)
                 embedVar.set_thumbnail(url=str(ctx.author.avatar_url))
                 await ctx.reply(embed=embedVar)
             else:
