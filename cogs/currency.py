@@ -191,8 +191,7 @@ class Currency(commands.Cog):
             cd = round(error.retry_after)
             minutes = str(cd // 60)
             seconds = str(cd % 60)
-            em = discord.Embed(title=f"Woah! Stop betting so fast!",
-                               description=f"Try again in {seconds} seconds.", color=0xFF0000)
+            em = discord.Embed(title=f"Woah! Stop betting so fast!", description=f"Try again in {seconds} seconds.", color=0xFF0000)
             await ctx.send(embed=em)
 
     @commands.command(name='leaderboard', help="b.lb <times | win | lose | profit | bagels | negprofit>", aliases=['lb', 'leader'], pass_context=True)
@@ -288,7 +287,7 @@ class Currency(commands.Cog):
 
 
     @commands.command(name='beg', help="beg for money because you don't have any")
-    @commands.cooldown(1, 500, commands.BucketType.user)
+    @commands.cooldown(1, 240, commands.BucketType.user)
     async def beg(self, ctx):
         choice = random.randint(0,1)
         if(choice == 0):
@@ -320,8 +319,7 @@ class Currency(commands.Cog):
             cd = round(error.retry_after)
             minutes = str(cd // 60)
             seconds = str(cd % 60)
-            em = discord.Embed(title=f"You can't just keep begging to get money!",
-                               description=f"Try again in {minutes} minutes and {seconds} seconds.", color=0xFF0000)
+            em = discord.Embed(title=f"You can't just keep begging to get money!", description=f"Try again in {minutes} minutes and {seconds} seconds.", color=0xFF0000)
             await ctx.send(embed=em)
         
     async def cog_command_error(self, ctx, error):
