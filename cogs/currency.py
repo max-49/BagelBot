@@ -12,13 +12,16 @@ class Currency(commands.Cog):
         self.bot = bot
 
     @commands.command(name="bal", aliases=['balance'], help="displays your balance!")
-    async def bal(self, ctx, user_id: int=None):
+    async def bal(self, ctx, user_id=None):
         with open('profiles.json') as f:
             profile_data = json.load(f)
         if user_id is None:
             uid = ctx.author.id
         else:
-            uid = user_id
+            if(user_id.isnumeric()):
+                uid = int(user_id)
+            else:
+                uid = user_id
         for i in range(len(profile_data)):
             if(profile_data[i]['ID'] == uid or profile_data[i]['Name'] == uid):
                 embedVar = discord.Embed(title=f"{profile_data[i]['Name']}'s balance", timestamp=datetime.utcnow(), color=0x00C3FF)
