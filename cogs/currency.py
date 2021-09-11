@@ -27,7 +27,11 @@ class Currency(commands.Cog):
                 embedVar = discord.Embed(title=f"{profile_data[i]['Name']}'s balance", timestamp=datetime.utcnow(), color=0x00C3FF)
                 embedVar.add_field(name="Balance", value=f"{profile_data[i]['Balance']} bagels", inline=False)
                 embedVar.add_field(name="Net profit from betting", value=f"{profile_data[i]['Profit']} bagels", inline=False)
-                embedVar.add_field(name="Percent times won", value=f"{profile_data[i]['Win']}/{profile_data[i]['Times']} times ({round((profile_data[i]['Win']/profile_data[i]['Times'])*100, 2)}%)", inline=False)
+                try:
+                    percent = round((profile_data[i]['Win']/profile_data[i]['Times'])*100, 2)
+                except ZeroDivisionError:
+                    percent = 0
+                embedVar.add_field(name="Percent times won", value=f"{profile_data[i]['Win']}/{profile_data[i]['Times']} times ({percent}%)", inline=False)
                 embedVar.set_thumbnail(url=profile_data[i]['Avatar URL'])
                 await ctx.reply(embed=embedVar)
                 return
