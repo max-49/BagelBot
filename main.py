@@ -1,5 +1,6 @@
 import os
 import discord
+from datetime import datetime
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -20,7 +21,8 @@ async def on_ready():
 @bot.event
 async def on_message(ctx):
     if ctx.content.startswith(prefix) and ctx.author.id != bot.user.id:
-        print(f"{ctx.author.name}: {ctx.content}")
+        now = datetime.now()
+        print(f"({now.strftime('%H:%M:%S')}) {ctx.author.name}: {ctx.content}")
     await bot.process_commands(ctx)
 
 @bot.event
