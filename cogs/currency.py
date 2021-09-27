@@ -176,11 +176,11 @@ class Currency(commands.Cog):
                     else:
                         embed = discord.Embed(title=welcome_message, timestamp=datetime.utcnow(), color=0x00FF00)
                         embed.add_field(name='Your slot roll:', value=f'**>** {slots} **<**', inline=False)
-                        embed.add_field(name=f'You win! Your new balance is {original_balance + (amount * payout)} bagels! ({payout}x payout)', value=':)', inline=False)
+                        embed.add_field(name=f'You win! Your new balance is {math.floor(original_balance + (amount * payout))} bagels! ({payout}x payout)', value=':)', inline=False)
                         profile_data[i]['Times'] = profile_data[i]['Times'] + 1
                         profile_data[i]['Win'] = profile_data[i]['Win'] + 1
-                        profile_data[i]['Profit'] = profile_data[i]['Profit'] + (amount * payout)
-                        profile_data[i]['Balance'] = original_balance + (amount * payout)
+                        profile_data[i]['Profit'] = profile_data[i]['Profit'] + math.floor(amount * payout)
+                        profile_data[i]['Balance'] = math.floor(original_balance + (amount * payout))
                         await ctx.send(embed=embed)
                 else:
                     embed = discord.Embed(title=welcome_message, timestamp=datetime.utcnow(), color=0x800080)
