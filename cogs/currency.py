@@ -11,7 +11,7 @@ class Currency(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="bal", aliases=['balance'], help="displays your balance!")
+    @commands.command(name="bal", aliases=['balance', 'profile'], help="displays your balance!")
     async def bal(self, ctx, user_id=None):
         with open('profiles.json') as f:
             profile_data = json.load(f)
@@ -50,7 +50,7 @@ class Currency(commands.Cog):
         
     @commands.command(name='table', help='shows the slots payout table!')
     async def table(self, ctx):
-        tables = [ { 'emoji': '⚽️', 'count': 2, 'payout': 1 }, { 'emoji': '🔴', 'count': 2, 'payout': 1 }, { 'emoji': '🌍', 'count': 2, 'payout': 1 }, { 'emoji': '💵', 'count': 2, 'payout': 1 }, { 'emoji': '📸', 'count': 2, 'payout': 1 }, { 'emoji': '🏓', 'count': 3, 'payout': 5 }, { 'emoji': '🏀', 'count': 3, 'payout': 10 }, { 'emoji': '🔍', 'count': 3, 'payout': 10 }, { 'emoji': '🔴', 'count': 3, 'payout': 20 }, { 'emoji': '⌛️', 'count': 3, 'payout': 25 }, { 'emoji': '🌽', 'count': 3, 'payout': 30 }, { 'emoji': '🌍', 'count': 3, 'payout': 50 }, { 'emoji': '🍎', 'count': 3, 'payout': 75 }, { 'emoji': '💵', 'count': 3, 'payout': 250 }]
+        tables = [ { 'emoji': '⚽️', 'count': 2, 'payout': 1 }, { 'emoji': '🔍', 'count': 2, 'payout': 1 }, { 'emoji': '⌛️', 'count': 2, 'payout': 1.75 }, { 'emoji': '🏓', 'count': 2, 'payout': 1.75 }, { 'emoji': '🔴', 'count': 2, 'payout': 2 }, { 'emoji': '🌍', 'count': 2, 'payout': 2 }, { 'emoji': '💵', 'count': 2, 'payout': 2 }, { 'emoji': '📸', 'count': 2, 'payout': 2 }, { 'emoji': '🏓', 'count': 3, 'payout': 5 }, { 'emoji': '⚽️', 'count': 3, 'payout': 10 }, { 'emoji': '🔍', 'count': 3, 'payout': 10 }, { 'emoji': '🔴', 'count': 3, 'payout': 20 }, { 'emoji': '⌛️', 'count': 3, 'payout': 25 }, { 'emoji': '🌍', 'count': 3, 'payout': 50 }, { 'emoji': '📸', 'count': 3, 'payout': 75 }, { 'emoji': '💵', 'count': 3, 'payout': 250 }]
         emojis = ''
         for table in tables:
             emojis += f"{table['emoji'] * table['count']}     - {table['payout']}x\n"
@@ -120,10 +120,10 @@ class Currency(commands.Cog):
                     await ctx.reply('Invalid option! Please choose either `high` or `slots`.')
                     return
                 if(bet == 'high'):
-                    bagel_roll = random.randint(1,10)
-                    you_roll = random.randint(1,10)
+                    bagel_roll = random.randint(1,6)
+                    you_roll = random.randint(1,6)
                     if(you_roll > bagel_roll):
-                        percent_won = random.randint(1,100)
+                        percent_won = random.randint(50,100)
                         embed = discord.Embed(title=welcome_message, timestamp=datetime.utcnow(), color=0x00ff00)
                         embed.add_field(name='BagelBot rolls...', value=bagel_roll, inline=True)
                         embed.add_field(name='You roll...', value=you_roll, inline=True)
@@ -154,9 +154,9 @@ class Currency(commands.Cog):
                     if(amount > 5000):
                         await ctx.reply("You can't bet more than 5000 bagels in the slot machine!")
                         return
-                    emojis = ['⚽️', '🔴', '🔍', '🌍', '🍍', '🍎', '🌽', '🏀', '📸', '💵', '⌛️', '🏓']
+                    emojis = ['⚽️', '🔴', '🔍', '🌍', '📸', '💵', '⌛️', '🏓']
                     slots = ' '.join([random.choice(emojis), random.choice(emojis), random.choice(emojis)])
-                    tables = [ { 'emoji': '⚽️', 'count': 2, 'payout': 1 }, { 'emoji': '🔴', 'count': 2, 'payout': 1 }, { 'emoji': '🌍', 'count': 2, 'payout': 1 }, { 'emoji': '💵', 'count': 2, 'payout': 1 }, { 'emoji': '📸', 'count': 2, 'payout': 1 }, { 'emoji': '🏓', 'count': 3, 'payout': 5 }, { 'emoji': '🏀', 'count': 3, 'payout': 10 }, { 'emoji': '🔍', 'count': 3, 'payout': 10 }, { 'emoji': '🔴', 'count': 3, 'payout': 20 }, { 'emoji': '⌛️', 'count': 3, 'payout': 25 }, { 'emoji': '🌽', 'count': 3, 'payout': 30 }, { 'emoji': '🌍', 'count': 3, 'payout': 50 }, { 'emoji': '🍎', 'count': 3, 'payout': 75 }, { 'emoji': '💵', 'count': 3, 'payout': 250 }]
+                    tables = [ { 'emoji': '⚽️', 'count': 2, 'payout': 1 }, { 'emoji': '🔍', 'count': 2, 'payout': 1 }, { 'emoji': '⌛️', 'count': 2, 'payout': 1.75 }, { 'emoji': '🏓', 'count': 2, 'payout': 1.75 }, { 'emoji': '🔴', 'count': 2, 'payout': 2 }, { 'emoji': '🌍', 'count': 2, 'payout': 2 }, { 'emoji': '💵', 'count': 2, 'payout': 2 }, { 'emoji': '📸', 'count': 2, 'payout': 2 }, { 'emoji': '🏓', 'count': 3, 'payout': 5 }, { 'emoji': '⚽️', 'count': 3, 'payout': 10 }, { 'emoji': '🔍', 'count': 3, 'payout': 10 }, { 'emoji': '🔴', 'count': 3, 'payout': 20 }, { 'emoji': '⌛️', 'count': 3, 'payout': 25 }, { 'emoji': '🌍', 'count': 3, 'payout': 50 }, { 'emoji': '📸', 'count': 3, 'payout': 75 }, { 'emoji': '💵', 'count': 3, 'payout': 250 }]
                     payout = 0
                     for emoji in emojis:
                         instances = slots.count(emoji)
