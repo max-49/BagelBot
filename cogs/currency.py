@@ -335,6 +335,77 @@ class Currency(commands.Cog):
         if not isinstance(error, commands.CommandOnCooldown):
             await ctx.send(f"**`ERROR in {os.path.basename(__file__)}:`** {type(error).__name__} - {error}")
 
+    @commands.command(name="sim", help="b.sim <high | slots> <amount> <times>")
+    async def sim(self, ctx, bet: str, amount: int, times: int):
+        if(amount < 1):
+            await ctx.reply('You can\'t simulate that number of attempts!')
+            return
+        if(bet not in ["high", "slots"]):
+            await ctx.reply("You can only simulate 'high' or 'slots'!")
+            return
+        if(times > 1000):
+            await ctx.reply("You can't simulate more than 1000 attempts (for now)!")
+            return
+        if(amount > 1000000):
+            await ctx.reply("You can't simulate bets of more than 1,000,000 bagels (for now)!")
+            return
+        if(bet == 'high'):
+            times_won = 0
+            times_tied = 0
+            times_lost = 0
+            net_profit = 0
+            for i in range(times):
+                bagel_roll = random.randint(1,6)
+                you_roll = random.randint(1,6)
+                if(you_roll > bagel_roll):
+                    percent_won = random.randint(50,100)
+                    times_won += 1
+                    net_profit += math.floor(amount * (percent_won/100))
+                elif(you_roll < bagel_roll):
+                    times_lost += 1
+                    net_profit -= amount
+                else:
+                    times_tied += 1
+            embed = discord.Embed(title="BagelBot High Simulation", timestamp=datetime.utcnow(), color=0x00FF00)
+            embed.add_field(name='Total times played:', value=times)
+            embed.add_field(name='Times won', value=f"{times_won} ({round((times_won/times), 2)}%)")
+            embed.add_field(name='Times tied', value=f"{times_tied} ({round((times_tied/times), 2)}%)")
+            embed.add_field(name='Times lost', value=f"{times_lost} ({round((times_lost/times), 2)}%)")
+            embed.add_field(name=f'Net profit with consistent bet of {amount}', value=net_profit)
+            await ctx.reply(embed=embed)
+            return
+        elif(bet == 'slots'):
+            if(amount > 5000):
+                await ctx.reply("You can't bet more than 5000 bagels in the slot machine (not even in simulation)!")
+                return
+            emojis = ['⚽️', '🔴', '🔍', '🌍', '📸', '💵', '⌛️', '🏓']
+            tables = [ { 'emoji': '⚽️', 'count': 2, 'payout': 1 }, { 'emoji': '🔍', 'count': 2, 'payout': 1 }, { 'emoji': '⌛️', 'count': 2, 'payout': 1.75 }, { 'emoji': '🏓', 'count': 2, 'payout': 1.75 }, { 'emoji': '🔴', 'count': 2, 'payout': 2 }, { 'emoji': '🌍', 'count': 2, 'payout': 2 }, { 'emoji': '💵', 'count': 2, 'payout': 2 }, { 'emoji': '📸', 'count': 2, 'payout': 2 }, { 'emoji': '🏓', 'count': 3, 'payout': 5 }, { 'emoji': '⚽️', 'count': 3, 'payout': 10 }, { 'emoji': '🔍', 'count': 3, 'payout': 10 }, { 'emoji': '🔴', 'count': 3, 'payout': 20 }, { 'emoji': '⌛️', 'count': 3, 'payout': 25 }, { 'emoji': '🌍', 'count': 3, 'payout': 50 }, { 'emoji': '📸', 'count': 3, 'payout': 75 }, { 'emoji': '💵', 'count': 3, 'payout': 250 }]
+            times_won = 0
+            times_lost = 0
+            net_profit = 0
+            for i in range(times):
+                slots = ' '.join([random.choice(emojis), random.choice(emojis), random.choice(emojis)])     
+                payout = 0
+                for emoji in emojis:
+                    instances = slots.count(emoji)
+                    for table in tables:
+                        if(emoji == table['emoji']):
+                            if(instances == table['count']):
+                                payout = table['payout']
+                if(payout == 0):
+                    times_lost += 1
+                    net_profit -= amount
+                else:
+                    times_won += 1
+                    net_profit += math.floor(amount * payout)
+            embed = discord.Embed(title="BagelBot Slots Simulation", timestamp=datetime.utcnow(), color=0x00FF00)
+            embed.add_field(name='Total times played:', value=times)
+            embed.add_field(name='Times won', value=f"{times_won} ({round((times_won/times), 2)}%)")
+            embed.add_field(name='Times lost', value=f"{times_lost} ({round((times_lost/times), 2)}%)")
+            embed.add_field(name=f'Net profit with consistent bet of {amount}', value=net_profit)
+            await ctx.reply(embed=embed)
+            return
+
 
 def setup(bot):
     bot.add_cog(Currency(bot))
