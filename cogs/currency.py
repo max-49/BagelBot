@@ -126,7 +126,7 @@ class Currency(commands.Cog):
                         embed = discord.Embed(title=welcome_message, timestamp=datetime.utcnow(), color=0x00ff00)
                         embed.add_field(name='BagelBot rolls...', value=bagel_roll, inline=True)
                         embed.add_field(name='You roll...', value=you_roll, inline=True)
-                        embed.add_field(name=f'Congrats, you win! Your new balance is {math.floor(original_balance + amount)} bagels!', value=f'Percent won: {percent_won}%', inline=False)
+                        embed.add_field(name=f'Congrats, you win! Your new balance is {math.floor(original_balance + amount)} bagels!', value=f':)', inline=False)
                         profile_data[i]['Times'] = profile_data[i]['Times'] + 1
                         profile_data[i]['Win'] = profile_data[i]['Win'] + 1
                         profile_data[i]['Profit'] = profile_data[i]['Profit'] + math.floor(amount)
