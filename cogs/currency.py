@@ -123,15 +123,14 @@ class Currency(commands.Cog):
                     bagel_roll = random.randint(1,6)
                     you_roll = random.randint(1,6)
                     if(you_roll > bagel_roll):
-                        percent_won = random.randint(50,100)
                         embed = discord.Embed(title=welcome_message, timestamp=datetime.utcnow(), color=0x00ff00)
                         embed.add_field(name='BagelBot rolls...', value=bagel_roll, inline=True)
                         embed.add_field(name='You roll...', value=you_roll, inline=True)
-                        embed.add_field(name=f'Congrats, you win! Your new balance is {math.floor(original_balance + (amount * (percent_won/100)))} bagels!', value=f'Percent won: {percent_won}%', inline=False)
+                        embed.add_field(name=f'Congrats, you win! Your new balance is {math.floor(original_balance + amount)} bagels!', value=f'Percent won: {percent_won}%', inline=False)
                         profile_data[i]['Times'] = profile_data[i]['Times'] + 1
                         profile_data[i]['Win'] = profile_data[i]['Win'] + 1
-                        profile_data[i]['Profit'] = profile_data[i]['Profit'] + math.floor(amount * (percent_won/100))
-                        profile_data[i]['Balance'] = int(math.floor(original_balance + (amount * (percent_won/100))))
+                        profile_data[i]['Profit'] = profile_data[i]['Profit'] + math.floor(amount)
+                        profile_data[i]['Balance'] = int(math.floor(original_balance + (amount)))
                         await ctx.reply(embed=embed)
                     elif(you_roll < bagel_roll):
                         embed = discord.Embed(title=welcome_message, timestamp=datetime.utcnow(), color=0xFF0000)
@@ -358,9 +357,8 @@ class Currency(commands.Cog):
                 bagel_roll = random.randint(1,6)
                 you_roll = random.randint(1,6)
                 if(you_roll > bagel_roll):
-                    percent_won = random.randint(50,100)
                     times_won += 1
-                    net_profit += math.floor(amount * (percent_won/100))
+                    net_profit += amount
                 elif(you_roll < bagel_roll):
                     times_lost += 1
                     net_profit -= amount
