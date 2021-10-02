@@ -343,8 +343,8 @@ class Currency(commands.Cog):
         if(bet not in ["high", "slots"]):
             await ctx.reply("You can only simulate 'high' or 'slots'!")
             return
-        if(times > 1000):
-            await ctx.reply("You can't simulate more than 1000 attempts (for now)!")
+        if(times > 100000):
+            await ctx.reply("You can't simulate more than 100000 attempts (for now)!")
             return
         if(amount > 1000000):
             await ctx.reply("You can't simulate bets of more than 1,000,000 bagels (for now)!")
