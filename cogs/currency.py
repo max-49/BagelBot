@@ -100,7 +100,7 @@ class Currency(commands.Cog):
     async def bet(self, ctx, bet: str, amount: int):
         with open('profiles.json') as f:
             profile_data = json.load(f)
-        if(amount < 1):
+        if(amount < 0):
             await ctx.reply('no')
             return
         if(len(bet) > 15):
