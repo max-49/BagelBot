@@ -140,8 +140,8 @@ class Basic(commands.Cog):
             em = discord.Embed(title=f"Woah! You don't need so many help embeds! Just use the one you already have!", description=f"Try again in {minutes} minutes and {seconds} seconds.", color=0xFF0000)
             await ctx.send(embed=em)
 
-    @commands.command(name="stats", help="view your ictf stats lol", pass_context=True)
-    async def stats(self, ctx, member: discord.Member=None):
+    @commands.command(name="stats", help="ictf stats lmao", pass_context=True)
+    async def stats(self, ctx, member: discord.Member = None):
         try:
             if member is None:
                 member = ctx.author
@@ -175,12 +175,14 @@ class Basic(commands.Cog):
             unsolved = '\n'.join(all_list)
             embedVar = discord.Embed(title=f"Stats for {name}", color=0x3498DB)
             embedVar.add_field(name="Score", value=score, inline=False)
-            embedVar.add_field(name="Solved Challenges", value=solved, inline=True)
-            embedVar.add_field(name="Unsolved Challenges", value=unsolved, inline=True)
+            if(len(solved) > 3):
+                embedVar.add_field(name="Solved Challenges", value=solved, inline=True)
+            if(len(unsolved) > 3):
+                embedVar.add_field(name="Unsolved Challenges", value=unsolved, inline=True)
             embedVar.set_thumbnail(url=member.avatar_url)
             await ctx.send(embed=embedVar)
         except IndexError:
-            await ctx.send("User is not on the leaderboard yet or hasn't linked their Discord! Tell them to check out <https://imaginaryctf.org/>!")
+            await ctx.send("User is not on the leaderboard yet! Tell them to check out <https://imaginaryctf.org/>!")
 
     @commands.command(name='spam', help="spams text")
     async def spam(self, ctx, *, string: str):

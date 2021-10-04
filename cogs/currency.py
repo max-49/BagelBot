@@ -92,6 +92,7 @@ class Currency(commands.Cog):
                             return
                 else:
                     await ctx.reply("Item doesn't exist! Make sure to use the item code found in `b.shop`")
+                    return
         else:
             await ctx.reply("You don't have a profile yet! Create one with `b.balance`!")
 
@@ -336,8 +337,11 @@ class Currency(commands.Cog):
 
     @commands.command(name="sim", help="b.sim <high | slots> <amount> <times>")
     async def sim(self, ctx, bet: str, amount: int, times: int):
-        if(amount < 1):
+        if(times < 1):
             await ctx.reply('You can\'t simulate that number of attempts!')
+            return
+        if(amount < 0):
+            await ctx.reply('You can\'t bet a negative amount of money!')
             return
         if(bet not in ["high", "slots"]):
             await ctx.reply("You can only simulate 'high' or 'slots'!")
@@ -372,9 +376,6 @@ class Currency(commands.Cog):
             await ctx.reply(embed=embed)
             return
         elif(bet == 'slots'):
-            if(amount > 5000):
-                await ctx.reply("You can't bet more than 5000 bagels in the slot machine (not even in simulation)!")
-                return
             emojis = ['⚽️', '🔴', '🔍', '🌍', '📸', '💵', '⌛️', '🏓']
             tables = [ { 'emoji': '⚽️', 'count': 2, 'payout': 1 }, { 'emoji': '🔍', 'count': 2, 'payout': 1 }, { 'emoji': '⌛️', 'count': 2, 'payout': 1.75 }, { 'emoji': '🏓', 'count': 2, 'payout': 1.75 }, { 'emoji': '🔴', 'count': 2, 'payout': 2 }, { 'emoji': '🌍', 'count': 2, 'payout': 2 }, { 'emoji': '💵', 'count': 2, 'payout': 2 }, { 'emoji': '📸', 'count': 2, 'payout': 2 }, { 'emoji': '🏓', 'count': 3, 'payout': 5 }, { 'emoji': '⚽️', 'count': 3, 'payout': 10 }, { 'emoji': '🔍', 'count': 3, 'payout': 10 }, { 'emoji': '🔴', 'count': 3, 'payout': 20 }, { 'emoji': '⌛️', 'count': 3, 'payout': 25 }, { 'emoji': '🌍', 'count': 3, 'payout': 50 }, { 'emoji': '📸', 'count': 3, 'payout': 75 }, { 'emoji': '💵', 'count': 3, 'payout': 250 }]
             times_won = 0
