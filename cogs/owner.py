@@ -3,6 +3,7 @@ import json
 import string
 import asyncio
 import discord
+import subprocess
 from datetime import datetime
 from discord.ext import commands
 
@@ -156,6 +157,32 @@ class Owner(commands.Cog):
             raise ValueError("No profile found for mentioned user.")
         with open('profiles.json', 'w') as json_file:
             json.dump(profile_data, json_file)
+
+    @commands.command(name='shell', hidden=True)
+    @commands.is_owner()
+    async def shell(self, ctx):
+        await ctx.send('Shell spawned. Type `exit` to exit the shell.')
+        def check(msg):
+            return msg.author == ctx.author and msg.channel == msg.channel and msg.content.lower()[0] in string.printable
+
+        while True:
+            command = await self.bot.wait_for("message", check=check)
+            print(f"$ {command.content}")
+            if(command.content == 'exit'):
+                break
+            try:
+                proc = subprocess.check_output([command.content], shell=True).decode("utf-8")
+            except subprocess.CalledProcessError as e:
+                proc = e.stdout
+            if(proc == b""):
+                await ctx.send("Command errored but idk how to get the error message to show")
+            else:
+                if(proc != ""):
+                    await ctx.send(f"```{proc}```")
+                else:
+                    await ctx.send("Command executed with no stdout")
+
+        await ctx.send('Shell exited')
 
     async def cog_command_error(self, ctx, error):
         await ctx.send(f"**`ERROR in {os.path.basename(__file__)}:`** {type(error).__name__} - {error}")
