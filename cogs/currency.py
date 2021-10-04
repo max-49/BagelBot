@@ -151,9 +151,6 @@ class Currency(commands.Cog):
                         profile_data[i]['Times'] = profile_data[i]['Times'] + 1
                         await ctx.reply(embed=embed)
                 elif(bet == 'slots'):
-                    if(amount > 5000):
-                        await ctx.reply("You can't bet more than 5000 bagels in the slot machine!")
-                        return
                     emojis = ['⚽️', '🔴', '🔍', '🌍', '📸', '💵', '⌛️', '🏓']
                     slots = ' '.join([random.choice(emojis), random.choice(emojis), random.choice(emojis)])
                     tables = [ { 'emoji': '⚽️', 'count': 2, 'payout': 1 }, { 'emoji': '🔍', 'count': 2, 'payout': 1 }, { 'emoji': '⌛️', 'count': 2, 'payout': 1.75 }, { 'emoji': '🏓', 'count': 2, 'payout': 1.75 }, { 'emoji': '🔴', 'count': 2, 'payout': 2 }, { 'emoji': '🌍', 'count': 2, 'payout': 2 }, { 'emoji': '💵', 'count': 2, 'payout': 2 }, { 'emoji': '📸', 'count': 2, 'payout': 2 }, { 'emoji': '🏓', 'count': 3, 'payout': 5 }, { 'emoji': '⚽️', 'count': 3, 'payout': 10 }, { 'emoji': '🔍', 'count': 3, 'payout': 10 }, { 'emoji': '🔴', 'count': 3, 'payout': 20 }, { 'emoji': '⌛️', 'count': 3, 'payout': 25 }, { 'emoji': '🌍', 'count': 3, 'payout': 50 }, { 'emoji': '📸', 'count': 3, 'payout': 75 }, { 'emoji': '💵', 'count': 3, 'payout': 250 }]
