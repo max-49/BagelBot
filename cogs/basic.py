@@ -155,7 +155,7 @@ class Basic(commands.Cog):
                 score = my_challs[0]["team"]["score"]
                 name = str(my_challs[0]["team"]["name"]) + " (team)"
             else:
-                score = my_challs[0]["user"]["score"]
+                score = "something"
                 name = member.name
             all_solves = []
             all_list = []
@@ -187,7 +187,7 @@ class Basic(commands.Cog):
     @commands.command(name='spam', help="spams text")
     async def spam(self, ctx, *, string: str):
         for i in range(5):
-            await ctx.send(string, allowed_mentions=discord.AllowedMentions(everyone=False))
+            await ctx.send(string, allowed_mentions=discord.AllowedMentions(everyone=False, users=False, roles=False))
 
     @commands.command(name="ping", help="displays the latency to the bot.")
     async def ping(self, ctx):
