@@ -23,7 +23,7 @@ If you want to run the bot yourself, here's how to do it!
 7. Run `b.help` to make and fill `commands.json` and run `b.bal` to make your profile
 8. You should now have a running instance of BagelBot!
 
-Important information: This bot is coded using discord.py version 1.7.3. If you have version 2.0 installed and want to run the bot, you might have to change some things (ex. avatar_url --> avatar.url)
+Important information: This bot is coded using discord.py version 1.7.3. If you have version 2.0 installed and want to run the bot, you might have to change some things (ex. avatar.url --> avatar.url)
 
 -----------------------------------
 

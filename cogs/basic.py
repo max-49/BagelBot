@@ -12,9 +12,9 @@ class Basic(commands.Cog):
     @commands.command(name='pfp', help="Displays a profile picture", pass_context=True)
     async def pfp(self, ctx, member: discord.Member = None):
         if member is None:
-            await ctx.send(f'{ctx.author.avatar_url}')
+            await ctx.send(f'{ctx.author.avatar.url}')
         else:
-            await ctx.send(f'{member.avatar_url}')
+            await ctx.send(f'{member.avatar.url}')
 
     @commands.command(name='info', help="Displays information about this bot")
     async def info(self, ctx):
@@ -179,7 +179,7 @@ class Basic(commands.Cog):
                 embedVar.add_field(name="Solved Challenges", value=solved, inline=True)
             if(len(unsolved) > 3):
                 embedVar.add_field(name="Unsolved Challenges", value=unsolved, inline=True)
-            embedVar.set_thumbnail(url=member.avatar_url)
+            embedVar.set_thumbnail(url=member.avatar.url)
             await ctx.send(embed=embedVar)
         except IndexError:
             await ctx.send("User is not on the leaderboard yet! Tell them to check out <https://imaginaryctf.org/>!")
